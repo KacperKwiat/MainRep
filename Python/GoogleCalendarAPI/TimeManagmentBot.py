@@ -40,7 +40,8 @@ def main():
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
+    commitHours(creds)
+def commitHours(creds):
     try:
         service = build('calendar', 'v3', credentials=creds)
 
@@ -51,7 +52,7 @@ def main():
         # timeEnd=(today+datetime.timedelta(days=1)).isoformat()+'Z' # 'Z' indicates UTC time
         timeStart=str(today)+"T00:00:00Z"
         timeEnd=str(today)+"T23:59:59Z"
-        print('Getting the upcoming 10 events')
+        print('Getting the upcoming events')
         events_result = service.events().list(calendarId='primary', timeMin=timeStart, timeMax=timeEnd,
                                               singleEvents=True,
                                               orderBy='startTime', timeZone='Europe/Warsaw').execute()
@@ -77,7 +78,7 @@ def main():
             new_end=parse(end)
             duration=new_end-new_start
             total_duration+=duration
-            print(f"{event['summary']}, duration: {duration}")
+            print(f"{event['summary']}, duration: {duration}, start date: {start}, end date: {end}")
 
     except HttpError as error:
         print('An error occurred: %s' % error)
