@@ -1,7 +1,15 @@
 package com.kacperk.emailservice.model;
 
-import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 @Table(name="Adress")
 public class Address {
     @Id
@@ -23,17 +31,8 @@ public class Address {
     private User user;
 
 
-    public Address(String country, String city, String postal_code, String street, Long number) {
 
-        this.country = country;
-        this.city = city;
-        this.postal_code = postal_code;
-        this.street = street;
-        this.number = number;
-    }
 
-    public Address() {
-    }
 
     public Long getId() {
         return id;

@@ -1,8 +1,19 @@
 package com.kacperk.emailservice.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.List;
 
+
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 @Table(name="User")
 public class User {
     @Id
@@ -13,6 +24,8 @@ public class User {
     private String name;
     @Column(name="surname")
     private String surname;
+    @Column(name="emailName")
+    private String emailName;
     @Column(name="gender")
     private Gender gender;
     @OneToOne(cascade=CascadeType.ALL)
@@ -24,15 +37,20 @@ public class User {
     private List<Email> sent_emails;
 
 
-
-    public User(String name, String surname, Gender gender, Address address) {
-        this.name = name;
-        this.surname = surname;
-        this.gender = gender;
-        this.address = address;
+    public String getEmailName() {
+        return emailName;
     }
 
-    public User() {
+    public void setEmailName(String emailName) {
+        this.emailName = emailName;
+    }
+
+    public List<Email> getSent_emails() {
+        return sent_emails;
+    }
+
+    public void setSent_emails(List<Email> sent_emails) {
+        this.sent_emails = sent_emails;
     }
 
     public Long getId() {
