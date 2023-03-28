@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.List;
 
 
-
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -17,15 +17,17 @@ import java.util.List;
 @Table(name="User")
 public class User {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id")
     private Long id;
-    @Column(name="name")
+    @Column(name="name", nullable = false)
     private String name;
     @Column(name="surname")
     private String surname;
-    @Column(name="emailName")
+    @Column(name="emailName", nullable = false, unique = true)
     private String emailName;
+    @Column(name="password", nullable = false, length = 64)
+    private String password;
     @Column(name="gender")
     private Gender gender;
     @OneToOne(cascade=CascadeType.ALL)
@@ -36,6 +38,13 @@ public class User {
     @JoinColumn(name="fk_fromEmail", referencedColumnName = "user_id")
     private List<Email> sent_emails;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public String getEmailName() {
         return emailName;

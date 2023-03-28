@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -15,15 +16,15 @@ import java.util.List;
 @Table(name="Email")
 public class Email {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="email_id")
     private Long id;
     @Column(name="sent_time")
     private LocalDateTime dateTime;
-    @Column(name="message")
+    @Column(name="message", length = 350)
     private String message;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_inbox", referencedColumnName = "email_id")
+    @JoinColumn(name = "fk_inbox", referencedColumnName = "email_id", nullable = false)
     private List<User> recivingUsers;
 
     public Long getId() {

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -13,12 +14,12 @@ import javax.persistence.*;
 @Table(name="Adress")
 public class Address {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="address_id")
     private Long id;
-    @Column(name="country")
+    @Column(name="country", nullable = false)
     private String country;
-    @Column(name="city")
+    @Column(name="city", nullable = false)
     private String city;
     @Column(name="postal code")
     private String postal_code;
