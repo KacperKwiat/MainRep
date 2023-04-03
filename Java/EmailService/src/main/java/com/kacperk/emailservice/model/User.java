@@ -1,11 +1,12 @@
 package com.kacperk.emailservice.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name="User")
+@Table(name="user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,19 +25,17 @@ public class User {
     private String name;
     @Column(name="surname")
     private String surname;
-    @Column(name="emailName", nullable = false, unique = true)
-    private String emailName;
     @Column(name="password", nullable = false, length = 64)
     private String password;
     @Column(name="gender")
     private Gender gender;
     @OneToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="fk_addressID")
+    @JoinColumn(name="fk_address_ID")
     private Address address;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_fromEmail", referencedColumnName = "user_id")
-    private List<Email> sent_emails;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="fk_userEmails", referencedColumnName = "email_id")
+    private Email user_email;
 
     public String getPassword() {
         return password;
@@ -46,21 +45,9 @@ public class User {
         this.password = password;
     }
 
-    public String getEmailName() {
-        return emailName;
-    }
 
-    public void setEmailName(String emailName) {
-        this.emailName = emailName;
-    }
 
-    public List<Email> getSent_emails() {
-        return sent_emails;
-    }
 
-    public void setSent_emails(List<Email> sent_emails) {
-        this.sent_emails = sent_emails;
-    }
 
     public Long getId() {
         return id;

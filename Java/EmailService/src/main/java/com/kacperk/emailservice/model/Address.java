@@ -1,17 +1,18 @@
 package com.kacperk.emailservice.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name="Adress")
+@Table(name="adress")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +22,11 @@ public class Address {
     private String country;
     @Column(name="city", nullable = false)
     private String city;
-    @Column(name="postal code")
+    @Column(name="postalcode")
     private String postal_code;
     @Column(name="street")
     private String street;
-    @Column(name="apartment-number")
+    @Column(name="apartmentnumber")
     private Long number;
 
     @OneToOne(mappedBy ="address")

@@ -1,31 +1,36 @@
 package com.kacperk.emailservice.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-@Table(name="Email")
+@Table(name="email")
 public class Email {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="email_id")
     private Long id;
-    @Column(name="sent_time")
-    private LocalDateTime dateTime;
-    @Column(name="message", length = 350)
-    private String message;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "fk_inbox", referencedColumnName = "email_id", nullable = false)
-    private List<User> recivingUsers;
+    @Column(name="emailName", nullable = false, unique = true)
+    private String emailName;
+
+    @OneToOne(mappedBy ="user_email" )
+    private User user;
+
+    @OneToOne(mappedBy = "sender")
+    private Message message;
+
+
 
     public Long getId() {
         return id;
@@ -35,27 +40,6 @@ public class Email {
         this.id = id;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public List<User> getRecivingUsers() {
-        return recivingUsers;
-    }
-
-    public void setRecivingUsers(List<User> recivingUsers) {
-        this.recivingUsers = recivingUsers;
-    }
 }
