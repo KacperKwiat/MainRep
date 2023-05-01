@@ -1,5 +1,6 @@
 package com.kacperk.emailservice.dtos;
 
+import com.kacperk.emailservice.model.Message;
 import com.kacperk.emailservice.model.User;
 import lombok.Data;
 
@@ -9,17 +10,25 @@ import java.util.List;
 @Data
 public class EmailDto {
     private Long id;
-    private String topic;
+    private String title;
     private LocalDateTime dateTime;
-    private String message;
+    private Message message;
     private List<User> recivingUsers;
 
-    public String getTopic() {
-        return topic;
+    public EmailDto(Long id, String title, LocalDateTime dateTime, Message message, List<User> recivingUsers) {
+        this.id = id;
+        this.title = title;
+        this.dateTime = dateTime;
+        this.message = message;
+        this.recivingUsers = recivingUsers;
     }
 
-    public void setTopic(String topic) {
-        this.topic = topic;
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Long getId() {
@@ -38,11 +47,11 @@ public class EmailDto {
         this.dateTime = dateTime;
     }
 
-    public String getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 

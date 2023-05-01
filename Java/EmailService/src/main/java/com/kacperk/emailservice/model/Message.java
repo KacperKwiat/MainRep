@@ -23,10 +23,7 @@ public class Message {
     @Column(name = "message_id")
     private Long id;
 
-    @Column(name="topic")
-    private String topic;
-    @Column(name="sent_time")
-    private LocalDateTime dateTime;
+
     @Column(name="message", length = 350)
     private String message;
 

@@ -36,6 +36,24 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="fk_userEmails", referencedColumnName = "email_id")
     private Email user_email;
+    @Column(name = "emailName", nullable = false, unique = true)
+    private String emailName;
+
+    public Email getUser_email() {
+        return user_email;
+    }
+
+    public void setUser_email(Email user_email) {
+        this.user_email = user_email;
+    }
+
+    public String getEmailName() {
+        return emailName;
+    }
+
+    public void setEmailName(String emailName) {
+        this.emailName = emailName;
+    }
 
     public String getPassword() {
         return password;
