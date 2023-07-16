@@ -25,6 +25,8 @@ public class User {
     private String name;
     @Column(name="surname")
     private String surname;
+    @Column(name="username")
+    private String username;
     @Column(name="password", nullable = false, length = 64)
     private String password;
     @Column(name="gender")
@@ -38,6 +40,19 @@ public class User {
     private Email user_email;
     @Column(name = "emailName", nullable = false, unique = true)
     private String emailName;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles = new ArrayList<>();
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Email getUser_email() {
         return user_email;
