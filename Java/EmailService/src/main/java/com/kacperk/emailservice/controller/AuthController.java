@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -49,4 +50,16 @@ public class AuthController {
 
         return new ResponseEntity<>("User successfully created", HttpStatus.ACCEPTED);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<String>login(@RequestParam String givenUsername, @RequestParam String givenPassword){
+        if (userRepository.existByUsername(givenUsername)){
+            User user = userRepository.findByUsername(givenUsername).get();
+            if (passwordEncoder.matches(givenPassword ,user.getPassword())){
+                return new ResponseEntity<>("You have successfully logged in", HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>("Given username or password is wrong", HttpStatus.NOT_FOUND);
+    }
+
 }
