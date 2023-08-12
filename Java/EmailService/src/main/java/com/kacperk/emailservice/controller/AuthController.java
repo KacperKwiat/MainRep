@@ -52,9 +52,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String>login(@RequestParam String givenUsername, @RequestParam String givenPassword){
-        if (userRepository.existByUsername(givenUsername)){
-            User user = userRepository.findByUsername(givenUsername).get();
+    public ResponseEntity<String>login(@RequestParam(name = "mail") String givenemail, @RequestParam(name = "pass") String givenPassword){
+        if (userRepository.existByUsername(givenemail)){
+            User user = userRepository.findByEmail(givenemail).get();
             if (passwordEncoder.matches(givenPassword ,user.getPassword())){
                 return new ResponseEntity<>("You have successfully logged in", HttpStatus.OK);
             }
